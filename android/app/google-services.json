@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "397994024355",
+    "project_id": "ecomerce-7c105",
+    "storage_bucket": "ecomerce-7c105.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397994024355:android:57e4c4210ebe11e3b20e16",
+        "android_client_info": {
+          "package_name": "com.brod.ecomerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397994024355-6bt9f82ks3uups3np1socqbhsa41g82f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brod.ecomerce",
+            "certificate_hash": "01a33b3dd172095bcf17d9745fd57c7b3f0390fd"
+          }
+        },
+        {
+          "client_id": "397994024355-tffm27282ccsjntkdsk0h2ukk3ltg4jb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsnNrBMP1AwgMnkTFjo9LVRtdbIlOiwzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397994024355-tffm27282ccsjntkdsk0h2ukk3ltg4jb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
