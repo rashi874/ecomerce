@@ -1,4 +1,6 @@
+import 'package:ecomerce/view/login/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -59,6 +61,55 @@ class AuthService {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
+  static Future<void> signUpWithEmail(
+    String email,
+    String password,
+    BuildContext context,
+  ) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      User? user = userCredential.user;
+
+      // Save user data to Firestore after signup
+      await _saveUserData(user);
+
+      print("User registered: ${user?.uid}");
+
+      // Navigate to HomeScreen after signup
+      if (user != null) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          '/home', // Route name
+          (route) => false, // Remove all previous routes
+        );
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => HomeScreen()),
+        // );
+      }
+    } catch (e) {
+      print("Error signing up: $e");
+    }
+  }
+
+  // static Future<void> signUpWithEmail(String email, String password) async {
+  //   try {
+  //     UserCredential userCredential = await FirebaseAuth.instance
+  //         .createUserWithEmailAndPassword(email: email, password: password);
+
+  //     User? user = userCredential.user;
+
+  //     // Save user data to Firestore after signup
+  //     await _saveUserData(user);
+
+  //     print("User registered: ${user?.uid}");
+  //   } catch (e) {
+  //     print("Error signing up: $e");
+  //   }
+  // }
+
   // Save user data to Firestore
   static Future<void> _saveUserData(User? user) async {
     if (user != null) {
@@ -110,9 +161,31 @@ class AuthService {
   }
 
   // Sign Out
-  static Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
-    await GoogleSignIn().signOut();
-    // await FacebookAuth.instance.logOut();
+  static Future<void> signOut(context) async {
+    try {
+      GoogleSignIn googleSignIn = GoogleSignIn();
+
+      if (await googleSignIn.isSignedIn()) {
+        await googleSignIn
+            .disconnect(); // Only disconnect if signed in with Google
+        await googleSignIn.signOut();
+      }
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+
+      await FirebaseAuth.instance.signOut();
+      await FirebaseAuth.instance.signOut();
+      await GoogleSignIn().disconnect(); // Ensures complete disconnection
+      await GoogleSignIn().signOut();
+      // await FacebookAuth.instance.logOut();
+    } catch (e) {
+      print("Error signing out: $e");
+    }
+    //   await FirebaseAuth.instance.signOut();
+    //   await GoogleSignIn().signOut();
+    //   // await FacebookAuth.instance.logOut();
+    // }
   }
 }

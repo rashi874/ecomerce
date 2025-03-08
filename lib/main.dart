@@ -1,7 +1,9 @@
 import 'package:ecomerce/auth_screen.dart';
 import 'package:ecomerce/const/const_color.dart';
 import 'package:ecomerce/controller/cart_controller.dart';
+import 'package:ecomerce/view/signup/create_account.dart';
 import 'package:ecomerce/view/home/home_screen.dart';
+import 'package:ecomerce/view/login/forgot_password.dart';
 import 'package:ecomerce/view/login/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,13 +25,6 @@ Future<void> main() async {
   Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
   Stripe.urlScheme = 'flutterstripe';
   await Stripe.instance.applySettings();
-
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // Configure Stripe with your publishable key & merchant identifier.
-  // Stripe.publishableKey =
-  //     'pk_test_51QzcMbAB7nmlSDhKNvYqjjEqh87ld74rC6pPRKw0T0HCq9xw190wv2hy0Y19GGNBsSUgIqSxT6fMl14Pw2LyWwXR00hGIcvjGf';
-  // // Stripe.publishableKey = 'sk_test_tR3PYbcVNZZ796tH88S4VQ2u';
-  // Stripe.merchantIdentifier = 'merchant.com.yourapp';
   runApp(const MyApp());
 }
 
@@ -47,9 +42,18 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Montserrat',
           appBarTheme: AppBarTheme(
+            surfaceTintColor: AppColors.backgroundColor,
             backgroundColor: AppColors.backgroundColor,
             elevation: 0,
-            iconTheme: IconThemeData(color: AppColors.textColor),
+            centerTitle: true,
+            titleTextStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: AppColors.primaryColor,
+              fontSize: 17,
+              fontFamily: 'Montserrat',
+            ),
+            actionsIconTheme: IconThemeData(),
+            // iconTheme: IconThemeData(color: AppColors.textColor),
           ),
           scaffoldBackgroundColor: AppColors.backgroundColor,
           textButtonTheme: TextButtonThemeData(
@@ -63,6 +67,11 @@ class MyApp extends StatelessWidget {
               //   ),
               // ),
             ),
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            selectedLabelStyle: TextStyle(fontSize: 12),
+            unselectedLabelStyle: TextStyle(fontSize: 12),
+            backgroundColor: AppColors.backgroundColor,
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
@@ -83,27 +92,15 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          // This is the theme of your application.
-          //
-          // TRY THIS: Try running your application with "flutter run". You'll see
-          // the application has a purple toolbar. Then, without quitting the app,
-          // try changing the seedColor in the colorScheme below to Colors.green
-          // and then invoke "hot reload" (save your changes or press the "hot
-          // reload" button in a Flutter-supported IDE, or press "r" if you used
-          // the command line to start the app).
-          //
-          // Notice that the counter didn't reset back to zero; the application
-          // state is not lost during the reload. To reset the state, use hot
-          // restart instead.
-          //
-          // This works for code too, not just values: Most code changes can be
-          // tested with just a hot reload.
+
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
         home: AuthWrapper(),
         routes: {
           '/home': (context) => HomeScreen(),
           '/login': (context) => LoginScreen(),
+          '/create': (context) => CreateAccount(),
+          '/forgotpassword': (context) => ForgotPassword(),
         },
         // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       ),

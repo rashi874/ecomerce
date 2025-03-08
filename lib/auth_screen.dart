@@ -1,3 +1,4 @@
+import 'package:ecomerce/view/botttom_nav.dart';
 import 'package:ecomerce/view/home/home_screen.dart';
 import 'package:ecomerce/view/login/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +14,7 @@ class AuthWrapper extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           User? user = snapshot.data;
-          return user == null ? LoginScreen() : HomeScreen();
+          return user == null ? LoginScreen() : BottomNavBarScreen();
         }
         return Scaffold(body: Center(child: CircularProgressIndicator()));
       },

@@ -1,3 +1,4 @@
+import 'package:ecomerce/const/const_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -7,7 +8,8 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
-
+  final String? Function(String?)? validator;
+  final VoidCallback? onSuffixIconTap;
   const CustomTextField({
     super.key,
     required this.controller,
@@ -16,22 +18,31 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.prefixIcon,
     this.suffixIcon,
+    this.validator,
+    this.onSuffixIconTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         obscureText: obscureText,
         keyboardType: keyboardType,
+        validator: validator,
+
         decoration: InputDecoration(
-          fillColor: Color(0xffA8A8A9),
+          suffixIcon:
+              suffixIcon != null
+                  ? GestureDetector(onTap: onSuffixIconTap, child: suffixIcon)
+                  : null,
+          fillColor: AppColors.textColor,
           labelText: labelText,
+          labelStyle: TextStyle(fontSize: 14),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
+          // suffixIcon: suffixIcon,
         ),
       ),
     );

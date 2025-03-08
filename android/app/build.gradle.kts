@@ -38,6 +38,9 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'); 'proguard-rules.pro';
+            //isMinifyEnabled = false
+           // isShrinkResources = false
         }
     }
 }
@@ -55,12 +58,13 @@ dependencies {
   // TODO: Add the dependencies for Firebase products you want to use
   // When using the BoM, don't specify versions in Firebase dependencies
   implementation("com.google.firebase:firebase-analytics")
+  implementation("com.stripe:stripe-android:21.6.0")
 
 // Jetpack Compose dependencies (latest versions)
-     implementation("androidx.compose.ui:ui:1.5.4")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
-    implementation("androidx.compose.material:material:1.5.4")
-    implementation("androidx.compose.runtime:runtime:1.5.4")
+    implementation("androidx.compose.ui:ui:1.7.8")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.7.8")
+    implementation("androidx.compose.material:material:1.7.8")
+    implementation("androidx.compose.runtime:runtime:1.7.8")
     
   // Add the dependencies for any other desired Firebase products
   // https://firebase.google.com/docs/android/setup#available-libraries
